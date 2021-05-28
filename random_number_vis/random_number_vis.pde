@@ -1,40 +1,37 @@
 int[] randoms;
-int canvasWidth = 300;
-int canvasHeight = 300;
+final int quantity = 100;
 
 void setup() {
-  size(300, 300);
+  size(1000, 1000);
   background(0);
   
-  randoms = new int[100];
+  randoms = new int[quantity];
   
-  for (int i=0; i<100; i++) {
-    randoms[i] = (int)random(200);
+  for (int i=0; i<quantity; i++) {
+    randoms [i] = (int)random(200);
   }
   
   noLoop();
 }
 
-/*
-  Mini ref:
-  rect(x, y, width, height)
-*/
-
 void draw() {
-  int widthOffset = canvasWidth / 10;
-  int heightOffset = canvasHeight / 10;
+  float smaller = min(height, width);
+  float widthOffset = smaller/10;
+  float heightOffset = smaller/10;
+  float barWidth = (width - widthOffset * 2) / quantity;
+  float maxBarHeight = (height - heightOffset * 2);
+
+  colorMode(HSB, 200, 200, 200);
   
-  int drawWidth = canvasWidth - (widthOffset * 2);
-  int barWidth = drawWidth / randoms.length;
-  //int barWidthOffset = barWidth / 2;
-  
-  int barHeight = (canvasHeight - heightOffset * 2);
-  
-  for (int i=0; i<randoms.length; i++) {
-    rect(
-        /* x */ widthOffset + barWidth * i,
-        /* y */ heightOffset,
-        /* w */ barWidth,
-        /* h */ barHeight * randoms[i] / 200);
+  float currentBar = 0;
+
+  for (int i=0; i<quantity; i++) {
+    currentBar = maxBarHeight * randoms[i]/200;
+    float centerOffSet = (height / 2) - currentBar/2;
+    fill(randoms[i], 200, 200);
+    rect(widthOffset + i * barWidth,
+    centerOffSet,
+    barWidth,
+    currentBar);
   }
 }
