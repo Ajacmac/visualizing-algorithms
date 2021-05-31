@@ -67,7 +67,7 @@ void bars() {
   float currentBar = 0;
 
   for (int i=0; i<quantity; i++) {
-    currentBar = maxBarHeight * randoms[i]/max;
+    currentBar = (maxBarHeight * randoms[i]/max) + 1;
     float centerOffSet = (height / 2) - currentBar/2;
     if (i < sortedDepth || sortedDepth == quantity - 1) {
       fill(randoms[i], max, max);
